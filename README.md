@@ -29,3 +29,6 @@ Folder contains nanopore sequences for TetO and LacO.
 
 ## sequences
 Folder contains reads coming from the TetR or LacI, to exclude them from the consideration.
+
+## polymer simulations
+Folder contains input for the simulations and code to analyze it. MSD was developed using FFT with the complexity O(n*log(n)).
