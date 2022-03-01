@@ -1,0 +1,2 @@
+to compile use smth like:
+mpicxx test_fftw.cpp -I../../../../../software/fftw-3.3.10/build/include -L../../../../../software/fftw-3.3.10/build/lib -lfftw3 -lm -o test_fft

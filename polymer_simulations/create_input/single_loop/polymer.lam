@@ -1,0 +1,98 @@
+# Parameters
+newton on off # for loop extrusion
+
+
+variable nstep_eq equal 1E7
+variable nstep_run equal 1E8
+variable nprint equal 1E4
+variable nprintlog equal 1E4
+
+variable temp     equal 1.0
+variable damp     equal 1
+variable timestep equal 0.25
+variable harmonic equal 100.
+
+# Initialization
+
+units		lj
+dimension	3
+atom_style	bond
+boundary	p p p
+
+# System definition
+
+read_data pol1k.data extra/special/per/atom 20 extra/bond/per/atom 1
+
+pair_style         lj/cut 1.122
+pair_coeff         * * 1.0 1.0 1.122
+bond_style harmonic
+bond_coeff 1 ${harmonic} 1.0
+bond_coeff 2 ${harmonic} 1.0
+special_bonds lj 1.0 1.0 1.0 angle no dihedral no
+
+# Simulation settings
+
+neigh_modify every 1 delay 0 check yes
+comm_modify cutoff 10.0 mode single vel yes
+
+# Minimize
+min_style cg
+minimize 1e-5 1e-5 100 1000
+reset_timestep 0
+
+# Run
+# damp = m/gamma
+
+fix integrator all nve
+fix dynamics all langevin ${temp} ${temp} ${damp} 252352
+timestep ${timestep}
+thermo_style custom step temp bonds
+thermo    ${nprintlog}
+#
+# Loop extrusion
+#
+fix loop all extrusion 17500 1 2 3 1.0 2
+fix loading all ex_load 7000 1 1 1.12 2 prob 0.001 684474 iparam 1 1 jparam 1 1
+fix unloading all ex_unload 7000 2 0.5 prob 0.001 456456
+run ${nstep_eq}
+dump dump0 all custom ${nprint} mytraj.lammpstrj id type xu yu zu
+# write info about bonds
+compute cb1 all cb 2 491 509
+variable b1 equal c_cb1
+compute cb2 all cb 2 491 508
+variable b2 equal c_cb2
+compute cb3 all cb 2 491 507
+variable b3 equal c_cb3
+compute cb4 all cb 2 491 506
+variable b4 equal c_cb4
+compute cb5 all cb 2 492 509
+variable b5 equal c_cb5
+compute cb6 all cb 2 492 508
+variable b6 equal c_cb6
+compute cb7 all cb 2 492 507
+variable b7 equal c_cb7
+compute cb8 all cb 2 492 506
+variable b8 equal c_cb8
+compute cb9 all cb 2 493 509
+variable b9 equal c_cb9
+compute cb10 all cb 2 493 508
+variable b10 equal c_cb10
+compute cb11 all cb 2 493 507
+variable b11 equal c_cb11
+compute cb12 all cb 2 493 506
+variable b12 equal c_cb12
+compute cb13 all cb 2 494 509
+variable b13 equal c_cb13
+compute cb14 all cb 2 494 508
+variable b14 equal c_cb14
+compute cb15 all cb 2 494 507
+variable b15 equal c_cb15
+compute cb16 all cb 2 494 506
+variable b16 equal c_cb16
+group for_dist id 491 509
+compute prop for_dist property/atom xu yu zu
+variable d1 equal sqrt((c_prop[491][1]-c_prop[509][1])^2+(c_prop[491][2]-c_prop[509][2])^2+(c_prop[491][3]-c_prop[509][3])^2)
+fix pdists all print 2100 "${d1} ${b1} ${b2} ${b3} ${b4} ${b5} ${b6} ${b7} ${b8} ${b9} ${b10} ${b11} ${b12} ${b13} ${b14} ${b15} ${b16}" file dst_bnd.dat screen no title "distance 491-509 491-508 491-507 491-506 492-509 492-508 492-507 492-506 493-509 493-508 493-507 493-506 494-509 494-508 494-507 494-506"
+run ${nstep_run}
+
+write_data last.data

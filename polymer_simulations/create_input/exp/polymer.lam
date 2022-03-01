@@ -1,0 +1,62 @@
+# Parameters
+newton on off # for loop extrusion
+
+
+variable nstep_eq equal 1E7
+variable nstep_run equal 1E8
+variable nprint equal 1E4
+variable nprintlog equal 1E4
+
+variable temp     equal 1.0
+variable damp     equal 1
+variable timestep equal 0.25
+variable harmonic equal 100.
+
+# Initialization
+
+units		lj
+dimension	3
+atom_style	bond
+boundary	p p p
+
+# System definition
+
+read_data pol1k.data extra/special/per/atom 20 extra/bond/per/atom 1
+
+pair_style         lj/cut 1.122
+pair_coeff         * * 1.0 1.0 1.122
+bond_style harmonic
+bond_coeff 1 ${harmonic} 1.0
+bond_coeff 2 ${harmonic} 1.0
+special_bonds lj 1.0 1.0 1.0 angle no dihedral no
+
+# Simulation settings
+
+neigh_modify every 1 delay 0 check yes
+comm_modify cutoff 10.0 mode single vel yes
+
+# Minimize
+min_style cg
+minimize 1e-5 1e-5 100 1000
+reset_timestep 0
+
+# Run
+# damp = m/gamma
+
+fix integrator all nve
+fix dynamics all langevin ${temp} ${temp} ${damp} 252352
+timestep ${timestep}
+thermo_style custom step temp bonds
+thermo    ${nprintlog}
+#
+# Loop extrusion
+#
+fix loop all extrusion 17500 1 2 3 1.0 2 4
+fix loading all ex_load 7000 1 1 1.12 2 prob 0.001 684474 iparam 1 1 jparam 1 1
+fix unloading all ex_unload 7000 2 0.5 prob 0.001 456456
+run ${nstep_eq}
+dump dump0 all custom ${nprint} mytraj.lammpstrj id type xu yu zu
+
+run ${nstep_run}
+
+write_data last.data
