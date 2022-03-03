@@ -1,5 +1,5 @@
 Code for the study: 
-# Live-cell imaging and polymer simulations reveal control of chromosome folding dynamics by cohesin and CTCF
+# Live-cell imaging and physical modeling reveal control of chromosome folding dynamics by cohesin and CTCF
 by 
 ### Pia Mach<sup>1,2*</sup>, Pavel Kos<sup>1*</sup>, Yinxiu Zhan<sup>1*</sup>, Julie Cramard<sup>1</sup>, Simon Gaudin<sup>1,3</sup>, Jana Tünnermann<sup>1,2</sup>, Jan Eglinger<sup>1</sup>, Jessica Zuin<sup>1</sup>, Mariya Kryzhanovska<sup>1</sup>, Sebastien Smallwood<sup>1</sup>, Laurent Gelman<sup>1</sup>, Edoardo Marchi<sup>4</sup>, Gregory Roth<sup>1</sup>, Elphège P Nora<sup>5</sup>, Guido Tiana<sup>4</sup>, Luca Giorgetti<sup>1,#</sup>
 
