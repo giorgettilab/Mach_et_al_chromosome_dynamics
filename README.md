@@ -16,19 +16,21 @@ by
 <sup>#</sup> correspondence: luca.giorgetti@fmi.ch
 
 ## 4C
-Folder contains bash script to trim the adapter sequence and R script to map all the insertions.
+Folder contains bash script to trim the adapter sequence and R script to map all the insertions. All the packages are specified in the Supplementary information.
 
 ## Fiji
-Folder contains installation package for plugin with ImageJ.
+Folder contains installation package for plugin with ImageJ. You can find the detailed information [here](https://imagej.net/software/fiji/)
 
 ## Hi-C
-Folder contains config files and used chromosome sizes corresponding to genome mm9.
+Folder contains config files and used chromosome sizes corresponding to genome mm9. The analysis was performed using HiC-Pro. All the details are specified in the Supplementary information.
 
 ## nanopore
-Folder contains nanopore sequences for TetO and LacO.
+Folder contains nanopore sequences for TetO and LacO in FASTA format.
 
 ## sequences
 Folder contains reads coming from the TetR or LacI, to exclude them from the consideration.
 
 ## polymer simulations
-Folder contains input for the simulations and code to analyze it. MSD was developed using FFT with the complexity O(n*log(n)).
+Folder contains input to perform the simulations using LAMMPS package with specifically designed addon. There is python and C++ code to analyze it. Calculating MSD was developed using FFT with the complexity O(n*log(n)).
+
+All the code was compiled with CMake v.3.15.5 when applicable and executed on linux with OS CentOS 7. The used Python version was 3.8.10 unless other information stated in the Supplemntary information. 
