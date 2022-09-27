@@ -25,7 +25,7 @@ Folder contains installation package for plugin with ImageJ. You can find the de
 Folder contains config files and used chromosome sizes corresponding to genome mm9. The analysis was performed using HiC-Pro. All the details are specified in the Supplementary information.
 
 ## nanopore
-Folder contains nanopore sequences for TetO and LacO in FASTA format.
+Folder contains the sequences of TetO and LacO cassettes in FASTA format used for Nanopore analysis.
 
 ## sequences
 Folder contains reads coming from the TetR or LacI, to exclude them from the consideration.
