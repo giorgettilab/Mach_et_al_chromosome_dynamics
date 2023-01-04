@@ -34,3 +34,6 @@ Folder contains reads coming from the TetR or LacI, to exclude them from the con
 Folder contains input to perform the simulations using LAMMPS package with specifically designed addon. There is python and C++ code to analyze it. Calculating MSD was developed using FFT with the complexity O(n*log(n)).
 
 All the code was compiled with CMake v.3.15.5 when applicable and executed on linux with OS CentOS 7. The used Python version was 3.8.10 unless other information stated in the Supplemntary information. 
+
+## Reference
+[1]. Mach, P., Kos, P.I., Zhan, Y. et al. Cohesin and CTCF control the dynamics of chromosome folding. Nat Genet 54, 1907–1918 (2022). https://doi.org/10.1038/s41588-022-01232-7
